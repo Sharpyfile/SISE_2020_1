@@ -15,7 +15,7 @@ Node::Node(Node *parent, puzzle puzzleState, int layer, string type)
 	else
 		this->parentFinished = false;
 	
-	if (type == "bfs")
+	if (type == "dfs")
 	{
 		if (checkIfFoundSolution())
 		{
@@ -29,7 +29,7 @@ Node::Node(Node *parent, puzzle puzzleState, int layer, string type)
 			this->addChildren();
 		}
 	}
-	else if (type == "dfs")
+	else if (type == "bfs")
 	{
 		if (checkIfFoundSolution())
 		{
