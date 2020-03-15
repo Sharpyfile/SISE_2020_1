@@ -4,56 +4,22 @@
 #include <sstream>
 #include <algorithm>
 #include <iomanip>
-#include "structures.h"
+#include "Node.h"
+
 using namespace std;
 
 puzzle loadPuzzleFromFile(string);
-void displayCurrentPuzzleState(puzzle);
-void moveL(puzzle *);
-void moveR(puzzle *);
-void moveU(puzzle *);
-void moveD(puzzle *);
 
 int main()
 {
-	
 	puzzle puzzle1 = loadPuzzleFromFile("4x4_01_00001.txt");
-	cout << puzzle1.sizeX << endl;
-	cout << puzzle1.sizeY << endl;
-	cout << puzzle1.zeroAt << endl;
-	cout << endl;
-
-
-	displayCurrentPuzzleState(puzzle1);
-
-	moveU(&puzzle1);
-	displayCurrentPuzzleState(puzzle1);
-
-	moveL(&puzzle1);
-	displayCurrentPuzzleState(puzzle1);
-
-	moveR(&puzzle1);
-	displayCurrentPuzzleState(puzzle1);
-
-	moveD(&puzzle1);
-	displayCurrentPuzzleState(puzzle1);
-
+	Node * firstNode = new Node(nullptr, puzzle1, 0, "dfs");	   
 
 	getchar();
 	return 0;
 }
 
-void displayCurrentPuzzleState(puzzle puzzle)
-{
-	for (int i = 0; i < puzzle.sizeX; i++)
-	{
-		for (int j = 0; j < puzzle.sizeY; j++)
-			cout << setw(3) << puzzle.puzzleState.at(i * puzzle.sizeX + j) << ' ';
-		cout << endl;
-	}
-	cout << endl;
-	
-}
+
 
 puzzle loadPuzzleFromFile(string filename)
 {
@@ -96,30 +62,4 @@ puzzle loadPuzzleFromFile(string filename)
 	return puzzle;														 //return puzzleStruct
 }
 
-void moveL(puzzle *puzzle)												 //move left
-{
-	cout << "Left" << endl;
-	swap(puzzle->puzzleState.at(puzzle->zeroAt), puzzle->puzzleState.at(puzzle->zeroAt - 1));
-	puzzle->zeroAt -= 1;
-}
 
-void moveR(puzzle *puzzle)												 //move right
-{
-	cout << "Right" << endl;
-	swap(puzzle->puzzleState.at(puzzle->zeroAt), puzzle->puzzleState.at(puzzle->zeroAt + 1));
-	puzzle->zeroAt += 1;
-}
-
-void moveU(puzzle *puzzle)												 //move up
-{
-	cout << "Up" << endl;
-	swap(puzzle->puzzleState.at(puzzle->zeroAt), puzzle->puzzleState.at(puzzle->zeroAt - puzzle->sizeY));
-	puzzle->zeroAt -= puzzle->sizeY;
-}
-
-void moveD(puzzle *puzzle)												 //move down
-{
-	cout << "Down" << endl;
-	swap(puzzle->puzzleState.at(puzzle->zeroAt), puzzle->puzzleState.at(puzzle->zeroAt + puzzle->sizeY));
-	puzzle->zeroAt += puzzle->sizeY;
-}
