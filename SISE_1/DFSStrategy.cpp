@@ -36,18 +36,15 @@ bool DFSStrategy::search(int steps, puzzle state, string &path)
 		}
 		
 
-		string tempOrderOfSearch = orderOfSearch;
-		
+		string tempOrderOfSearch = orderOfSearch;		
 		graph->availableMoves(tempOrderOfSearch);
-
+		
 		while (!tempOrderOfSearch.empty())
 		{
 			graph->currentState = state;
 			graph->moveZero(tempOrderOfSearch.at(0));
 			path += tempOrderOfSearch.at(0);
 			tempOrderOfSearch.erase(0, 1);
-			cout << "Order: " << tempOrderOfSearch << endl;
-			displayCurrentPuzzleState(graph->currentState);
 			if (!checkIfVisited(graph->currentState, path))
 				if (search(steps, graph->currentState, path))
 					return true;
@@ -62,7 +59,8 @@ bool DFSStrategy::search(int steps, puzzle state, string &path)
 
 bool DFSStrategy::checkIfVisited(puzzle &state, string &path)
 {
-	int iterator;
+	int iterator = 0;
+
 	for (int i = 0; i < this->map.size(); i++)
 	{
 		if (this->map.at(i).first.puzzleState == state.puzzleState)
@@ -72,20 +70,27 @@ bool DFSStrategy::checkIfVisited(puzzle &state, string &path)
 		}
 		
 	}
-	if (this->map.at(iterator).first.puzzleState == this->map.at(this->map.size() - 1).first.puzzleState &&
-		this->map.at(iterator).second == this->map.at(this->map.size() - 1).second)
+	if (!this->map.at(iterator).second.empty())
 	{
-		return false;
-	}
-	else if (this->map.at(iterator).second.size() <= path.size())
-		return true;
-	else
-	{
-		this->map.at(iterator).second = path;
-		return false;
-	}
+		if (this->map.at(iterator).first.puzzleState == this->map.back().first.puzzleState &&
+			this->map.at(iterator).second == this->map.back().second)
+		{
 
-	return true;
+			return false;
+		}
+		else if (this->map.at(iterator).second.size() <= path.size())
+		{
+
+			return true;
+		}
+		else
+		{
+			this->map.at(iterator).second = path;
+			return false;
+		}
+	}
+	
+	return false;	
 }
 
 

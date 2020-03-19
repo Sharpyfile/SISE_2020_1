@@ -14,8 +14,10 @@ Graph::Graph(puzzle startState, string strategyName, string orderOfSearch)
 		this->strategy = new DFSStrategy(this, orderOfSearch);
 
 	string endResult;
-	this->strategy->search(30, this->currentState, endResult);
-	cout << "Found solution: "<< endResult << endl;
+	if (this->strategy->search(30, this->currentState, endResult))
+		cout << "Found solution: " << endResult << endl;
+	else
+		cout << "e" << endl;
 	
 
 }
@@ -29,41 +31,51 @@ void Graph::moveZero(char direction)
 {
 	if (direction == 'L')
 	{
-		moveL(currentState);
+		this->currentState = moveL(currentState);
 	}		
 	else if (direction == 'R')
 	{
-		moveR(currentState);
+		this->currentState = moveR(currentState);
 	}
 	else if (direction == 'D')
 	{
-		moveD(currentState);
+		this->currentState = moveD(currentState);
 	}
 	else if (direction == 'U')
 	{
-		moveU(currentState);
+		this->currentState = moveU(currentState);
 	}
 }
 
 void Graph::availableMoves(string & availableMoves)
 {
-	string tempMoves = availableMoves;
-	if (!tempMoves.empty())
+	string tempMoves;
+
+	if (!availableMoves.empty())
 	{
-		for (char s : tempMoves)
+		for (char s : availableMoves)
 		{
+
 			if (s == 'L')
-				if (!checkMoveL(currentState))
-					tempMoves.erase(tempMoves.find(s), 1);
-			if (s == 'R')
-				if (!checkMoveR(currentState))
-					tempMoves.erase(tempMoves.find(s), 1);
-			if (s == 'D')
-				if (!checkMoveD(currentState))
-					tempMoves.erase(tempMoves.find(s), 1);
-			if (s == 'U')
-				if (!checkMoveU(currentState))
-					tempMoves.erase(tempMoves.find(s), 1);
+			{
+				if (checkMoveL(currentState))
+					tempMoves += s;
+			}				
+			else if (s == 'R')
+			{
+				if (checkMoveR(currentState))
+					tempMoves += s;
+			}
+			else if (s == 'D')
+			{
+				if (checkMoveD(currentState))
+					tempMoves += s;
+			}
+			else if (s == 'U')
+			{
+				if (checkMoveU(currentState))
+					tempMoves += s;
+			}
 		}
 
 		if (lastPosition == 'L' || lastPosition == 'R' || lastPosition == 'U' || lastPosition == 'D')
@@ -72,7 +84,6 @@ void Graph::availableMoves(string & availableMoves)
 		}
 	}
 	
-
 	availableMoves = tempMoves;
 }
 
@@ -80,7 +91,7 @@ puzzle Graph::createEndState()
 {
 	puzzle temp;
 	for (int i = 0; i < startState.puzzleState.size() - 1; i++)
-		temp.puzzleState.push_back(i);
+		temp.puzzleState.push_back(i+1);
 
 	temp.puzzleState.push_back(0);
 	temp.sizeX = startState.sizeX;

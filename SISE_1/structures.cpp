@@ -13,8 +13,6 @@ bool checkMoveL(puzzle passedPuzzle)
 
 puzzle moveL(puzzle passedPuzzle)												 //move left
 {
-	
-
 	if (checkMoveL(passedPuzzle))
 	{
 		swap(passedPuzzle.puzzleState.at(passedPuzzle.zeroAt), passedPuzzle.puzzleState.at(passedPuzzle.zeroAt - 1));

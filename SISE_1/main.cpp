@@ -13,7 +13,7 @@ puzzle loadPuzzleFromFile(string);
 int main()
 {
 	puzzle puzzle1 = loadPuzzleFromFile("4x4_01_00001.txt");
-	Graph * graph = new Graph(puzzle1, "dfs", "RDLU");
+	Graph * graph = new Graph(puzzle1, "dfs", "DRLU");
 	getchar();
 	return 0;
 }
