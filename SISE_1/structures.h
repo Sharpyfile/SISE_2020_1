@@ -4,11 +4,13 @@
 
 #pragma once
 
+using namespace std;
+
 struct puzzle
 {
 	int sizeX;
 	int sizeY;
-	std::vector<int> puzzleState;
+	vector<int> puzzleState;
 	int zeroAt;
 };
 

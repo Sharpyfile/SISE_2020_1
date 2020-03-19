@@ -4,27 +4,12 @@
 class Node
 {
 private:	
-
-	Node *parent;
+	std::string currentPath;
 	puzzle currentState;
-	std::vector<Node *> children;
-	int layer;
-	int currentLayer;
-	std::string type;
-	bool parentFinished;
 	
 
 public:
-	Node(Node *parent, puzzle currentState, int layer, std::string type);
+	Node(puzzle state);
 	~Node();
-	void addChildren();
-	void nextLayer();
-	void displayCurrentState();
-	std::vector<Node *> getChildren();
-	int getLayer();
-	puzzle getCurrentState();
-	bool checkIfStateOccured(std::vector<int> puzzleState);
-	bool checkIfFoundSolution();
-	bool parentFinishedCheching();
 };
 

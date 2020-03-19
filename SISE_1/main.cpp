@@ -4,7 +4,7 @@
 #include <sstream>
 #include <algorithm>
 #include <iomanip>
-#include "Node.h"
+#include "Graph.h"
 
 using namespace std;
 
@@ -13,8 +13,7 @@ puzzle loadPuzzleFromFile(string);
 int main()
 {
 	puzzle puzzle1 = loadPuzzleFromFile("4x4_01_00001.txt");
-	Node * firstNode = new Node(nullptr, puzzle1, 0, "dfs");	   
-
+	Graph * graph = new Graph(puzzle1, "dfs", "RDLU");
 	getchar();
 	return 0;
 }
