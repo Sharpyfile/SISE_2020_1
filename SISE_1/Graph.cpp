@@ -14,8 +14,11 @@ Graph::Graph(puzzle startState, string strategyName, string orderOfSearch)
 		this->strategy = new DFSStrategy(this, orderOfSearch);
 
 	string endResult;
-	if (this->strategy->search(30, this->currentState, endResult))
+	if (this->strategy->search(20, this->currentState, endResult))
+	{
 		cout << "Found solution: " << endResult << endl;
+		displayCurrentPuzzleState(this->currentState);
+	}		
 	else
 		cout << "e" << endl;
 	
