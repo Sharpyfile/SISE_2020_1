@@ -11,5 +11,6 @@ public:
 	~DFSStrategy();
 	bool search(int, puzzle, std::string &);
 	bool checkIfVisited(puzzle &, std::string &);
+	void checkIfReachedMax(int);
 };
 

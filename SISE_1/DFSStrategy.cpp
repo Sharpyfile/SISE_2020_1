@@ -17,9 +17,14 @@ DFSStrategy::~DFSStrategy()
 bool DFSStrategy::search(int steps, puzzle state, string &path)
 {
 	if (graph->endState.puzzleState == state.puzzleState)
+	{
+		this->checkIfReachedMax(path.size());
+		this->processed = this->visited;
 		return true;
+	}		
 	else if (path.size() < steps)
 	{
+		this->checkIfReachedMax(path.size());
 		this->map.push_back({ state, path });
 		graph->currentState = state;
 
@@ -46,8 +51,13 @@ bool DFSStrategy::search(int steps, puzzle state, string &path)
 			path += tempOrderOfSearch.at(0);
 			tempOrderOfSearch.erase(0, 1);
 			if (!checkIfVisited(graph->currentState, path))
+			{
+				this->visited++;
 				if (search(steps, graph->currentState, path))
 					return true;
+			}
+				
+			
 
 			path.pop_back();
 
@@ -93,4 +103,8 @@ bool DFSStrategy::checkIfVisited(puzzle &state, string &path)
 	return false;	
 }
 
-
+void DFSStrategy::checkIfReachedMax(int currentDepth)
+{
+	if (currentDepth > this->reachedDepth)
+		this->reachedDepth = currentDepth;
+}

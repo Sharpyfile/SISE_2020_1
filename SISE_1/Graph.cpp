@@ -3,7 +3,7 @@
 using namespace std;
 
 
-Graph::Graph(puzzle startState, string strategyName, string orderOfSearch)
+Graph::Graph(puzzle startState, string strategyName, string orderOfSearch, string fileSolutionName, string filetatsName)
 {
 	this->startState = startState;
 	this->currentState = startState;
@@ -16,15 +16,23 @@ Graph::Graph(puzzle startState, string strategyName, string orderOfSearch)
 		this->strategy = new BFSStrategy(this, orderOfSearch);
 
 	string endResult;
+	this->strategy->reachedDepth = 0;
+	auto start = chrono::steady_clock::now();
+	auto end = chrono::steady_clock::now();
 	if (this->strategy->search(20, this->currentState, endResult))
 	{
+		end = chrono::steady_clock::now();
 		cout << "Found solution: " << endResult << endl;
 		displayCurrentPuzzleState(this->currentState);
 	}		
 	else
+	{
+		end = chrono::steady_clock::now(); 
 		cout << "e" << endl;
-	
+	}
+	long long duration = chrono::duration_cast<chrono::microseconds>(end - start).count();
 
+	saveToFile(endResult, fileSolutionName, filetatsName, duration);
 }
 
 
@@ -104,4 +112,38 @@ puzzle Graph::createEndState()
 	temp.zeroAt = startState.puzzleState.size() - 1;
 
 	return temp;
+}
+
+void Graph::saveToFile(string solution, string filename1, string filename2, long long duration)
+{
+	ofstream file1(filename1);
+
+	if (solution.size() <= 0)
+		file1 << -1;
+	else
+	{
+		file1 << solution.size() << endl;
+		file1 << solution;
+	}
+
+	file1.close();
+
+	ofstream file2(filename2);
+	if (solution.size() <= 0)
+	{
+		file2 << -1 << endl;
+
+	}
+	else
+		file2 << solution.size() << endl;
+
+	file2 << this->strategy->visited << endl;
+	file2 << this->strategy->processed << endl;
+	file2 << this->strategy->reachedDepth << endl;
+	float finalDuration = (double)duration / 1000;
+	file2 << finalDuration;
+
+	file2.close();
+
+
 }

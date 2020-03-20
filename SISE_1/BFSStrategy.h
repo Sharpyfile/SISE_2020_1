@@ -14,5 +14,6 @@ public:
 
 	bool search(int, puzzle, std::string&);
 	bool checkIfVisited(puzzle);
+	void checkIfReachedMax(int currentDepth);
 };
 

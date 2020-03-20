@@ -23,18 +23,18 @@ bool BFSStrategy::search(int steps, puzzle currentState, string& path)
 	set.push_back(node->currentState);
 
 
-	int iterator = 0;
 	while (!queue.empty())
 	{
 		node = queue.at(0);
 		tempPath = node->currentPath;
 		queue.erase(queue.begin(), queue.begin() + 1);
-
+		
 		if (graph->endState.puzzleState == node->currentState.puzzleState)
 		{
 			graph->currentState = node->currentState;
 			path = node->currentPath;
 			queue.erase(queue.begin());
+			this->processed = this->visited;
 			return true;
 		}
 		else if (tempPath.size() < steps)
@@ -70,8 +70,12 @@ bool BFSStrategy::search(int steps, puzzle currentState, string& path)
 					queue.push_back(adjNode);
 				}
 				else
+				{
+					this->visited++;
 					delete adjNode;
-
+				}
+					
+				this->checkIfReachedMax(tempPath.size());
 				tempPath.pop_back();
 
 			}
@@ -80,7 +84,7 @@ bool BFSStrategy::search(int steps, puzzle currentState, string& path)
 		delete node;
 	}
 
-	
+	this->processed = this->visited;
 	return false;
 }
 
@@ -92,4 +96,10 @@ bool BFSStrategy::checkIfVisited(puzzle state)
 			return true;
 	}
 	return false;
+}
+
+void BFSStrategy::checkIfReachedMax(int currentDepth)
+{
+	if (currentDepth > this->reachedDepth)
+		this->reachedDepth = currentDepth;
 }

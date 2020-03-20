@@ -10,11 +10,13 @@ using namespace std;
 
 puzzle loadPuzzleFromFile(string);
 
-int main()
+int main(int argc, char *argv[])
 {
-	puzzle puzzle1 = loadPuzzleFromFile("4x4_01_00001.txt");
-	Graph * graph = new Graph(puzzle1, "bfs", "LDRU");
-	getchar();
+
+
+
+	puzzle puzzle1 = loadPuzzleFromFile(argv[3]);
+	Graph * graph = new Graph(puzzle1, argv[1], argv[2], argv[4], argv[5]);
 	return 0;
 }
 
