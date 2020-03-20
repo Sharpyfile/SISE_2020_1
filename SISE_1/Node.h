@@ -3,13 +3,10 @@
 
 class Node
 {
-private:	
-	std::string currentPath;
-	puzzle currentState;
-	
-
 public:
 	Node(puzzle state);
 	~Node();
+	std::string currentPath;
+	puzzle currentState;
 };
 

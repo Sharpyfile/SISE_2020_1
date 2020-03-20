@@ -12,6 +12,8 @@ Graph::Graph(puzzle startState, string strategyName, string orderOfSearch)
 
 	if (strategyName == "dfs")
 		this->strategy = new DFSStrategy(this, orderOfSearch);
+	else if (strategyName == "bfs")
+		this->strategy = new BFSStrategy(this, orderOfSearch);
 
 	string endResult;
 	if (this->strategy->search(20, this->currentState, endResult))

@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BFSStrategy.cpp" />
     <ClCompile Include="DFSStrategy.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="main.cpp" />
@@ -131,6 +132,7 @@
     <ClCompile Include="structures.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BFSStrategy.h" />
     <ClInclude Include="DFSStrategy.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="Node.h" />

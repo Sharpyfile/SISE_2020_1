@@ -2,6 +2,7 @@
 #include "structures.h"
 #include "SearchStrategy.h"
 #include "DFSStrategy.h"
+#include "BFSStrategy.h"
 #include <iostream>
 #include <string>
 

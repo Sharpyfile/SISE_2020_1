@@ -1,13 +1,9 @@
 #pragma once
 #include"SearchStrategy.h"
 #include "Graph.h"
-#include "structures.h"
-#include <string>
-#include <vector>
 
 class DFSStrategy : public SearchStrategy
 {
-
 private:
 	std::vector<std::pair<puzzle, std::string>> map;
 public:
