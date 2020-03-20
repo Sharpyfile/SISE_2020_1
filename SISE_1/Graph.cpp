@@ -16,20 +16,15 @@ Graph::Graph(puzzle startState, string strategyName, string orderOfSearch, strin
 		this->strategy = new BFSStrategy(this, orderOfSearch);
 
 	string endResult;
+	
 	this->strategy->reachedDepth = 0;
+	
 	auto start = chrono::steady_clock::now();
+
+	this->strategy->search(20, this->currentState, endResult);
+	
 	auto end = chrono::steady_clock::now();
-	if (this->strategy->search(20, this->currentState, endResult))
-	{
-		end = chrono::steady_clock::now();
-		cout << "Found solution: " << endResult << endl;
-		displayCurrentPuzzleState(this->currentState);
-	}		
-	else
-	{
-		end = chrono::steady_clock::now(); 
-		cout << "e" << endl;
-	}
+
 	long long duration = chrono::duration_cast<chrono::microseconds>(end - start).count();
 
 	saveToFile(endResult, fileSolutionName, filetatsName, duration);
