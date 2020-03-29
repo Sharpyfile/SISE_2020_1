@@ -19,7 +19,7 @@ bool DFSStrategy::search(int steps, puzzle state, string &path)
 	if (graph->endState.puzzleState == state.puzzleState)
 	{
 		this->checkIfReachedMax(path.size());
-		this->processed = this->visited;
+		this->visited;
 		return true;
 	}		
 	else if (path.size() < steps)
@@ -53,8 +53,10 @@ bool DFSStrategy::search(int steps, puzzle state, string &path)
 			if (!checkIfVisited(graph->currentState, path))
 			{
 				this->visited++;
+				this->processed++;
 				if (search(steps, graph->currentState, path))
 					return true;
+				
 			}
 				
 			
@@ -62,6 +64,10 @@ bool DFSStrategy::search(int steps, puzzle state, string &path)
 			path.pop_back();
 
 		}
+	}
+	else
+	{
+		this->processed--;
 	}
 
 	return false;

@@ -28,18 +28,19 @@ bool BFSStrategy::search(int steps, puzzle currentState, string& path)
 		node = queue.at(0);
 		tempPath = node->currentPath;
 		queue.erase(queue.begin(), queue.begin() + 1);
+		this->visited++;
 		
 		if (graph->endState.puzzleState == node->currentState.puzzleState)
 		{
 			graph->currentState = node->currentState;
 			path = node->currentPath;
 			queue.erase(queue.begin());
-			this->processed = this->visited;
 			return true;
 		}
 		else if (tempPath.size() < steps)
 		{
 			graph->currentState = node->currentState;
+			this->processed++;
 
 			if (!node->currentPath.empty())
 			{
@@ -55,7 +56,7 @@ bool BFSStrategy::search(int steps, puzzle currentState, string& path)
 
 			string tempOrderOfSearch = orderOfSearch;
 			graph->availableMoves(tempOrderOfSearch);
-
+			
 			while (!tempOrderOfSearch.empty())
 			{
 				graph->currentState = node->currentState;
@@ -82,9 +83,9 @@ bool BFSStrategy::search(int steps, puzzle currentState, string& path)
 
 		}
 		delete node;
+		
 	}
 
-	this->processed = this->visited;
 	return false;
 }
 
